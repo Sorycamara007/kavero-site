@@ -10,8 +10,11 @@ export const metadata: Metadata = {
     "Gérez vos employés, congés, présences et recrutement avec Kavero. Conçu pour les PME d'Afrique de l'Ouest. Simple, moderne, en FCFA.",
 
   icons: {
-    icon: "/favicon.png",
-    apple: "/favicon.png",
+    icon: [
+      { url: '/favicon.png', type: 'image/png' },
+    ],
+    apple: '/favicon.png',
+    shortcut: '/favicon.png',
   },
 
   openGraph: {
