@@ -1,19 +1,22 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Kavero — Le système RH des entreprises modernes",
+  title: "Kavero — La plateforme RH des PME africaines",
   description:
-    "Kavero est une plateforme RH moderne qui simplifie la gestion des équipes, du recrutement et des opérations RH.",
+    "Gérez vos employés, congés, présences et recrutement avec Kavero. Conçu pour les PME d'Afrique de l'Ouest. Simple, moderne, en FCFA.",
 
   icons: {
     icon: "/favicon.png",
   },
 
   openGraph: {
-    title: "Kavero — Le système RH des entreprises modernes",
+    title: "Kavero — La plateforme RH des PME africaines",
     description:
-      "Une nouvelle génération de gestion RH pour les entreprises modernes.",
+      "Gérez vos employés, congés, présences et recrutement avec Kavero. Conçu pour les PME d'Afrique de l'Ouest. Simple, moderne, en FCFA.",
     url: "https://kaverohr.com",
     siteName: "Kavero",
     images: [
@@ -21,6 +24,7 @@ export const metadata: Metadata = {
         url: "/preview.png",
         width: 1200,
         height: 630,
+        alt: "Kavero — La plateforme RH des PME africaines",
       },
     ],
     locale: "fr_FR",
@@ -29,9 +33,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Kavero — Le système RH des entreprises modernes",
+    title: "Kavero — La plateforme RH des PME africaines",
     description:
-      "Une plateforme simple pour gérer les équipes, le recrutement et les opérations RH.",
+      "Gérez vos employés, congés, présences et recrutement avec Kavero. Conçu pour les PME d'Afrique de l'Ouest. Simple, moderne, en FCFA.",
     images: ["/preview.png"],
   },
 };
@@ -43,7 +47,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body>{children}</body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
