@@ -33,10 +33,20 @@ function useFadeUp() {
 }
 
 /* ─────────────────────────────────────────────
-   Navbar
+   Page
 ───────────────────────────────────────────── */
-function Navbar() {
+export default function Home() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [formName, setFormName] = useState("");
+  const [formCompany, setFormCompany] = useState("");
+  const [formEmail, setFormEmail] = useState("");
+  const [formSize, setFormSize] = useState("");
+
+  const refSolution = useFadeUp();
+  const refModules = useFadeUp();
+  const refWhy = useFadeUp();
+  const refContact = useFadeUp();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -44,391 +54,745 @@ function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  return (
-    <nav
-      className={`sticky top-0 z-50 bg-white transition-shadow duration-300 ${
-        scrolled ? "shadow-md" : "shadow-none border-b border-slate-100"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-6">
-        {/* Logo */}
-        <a href="#" className="shrink-0">
-          <Image
-            src="/kavero-logo-transparent.webp"
-            alt="Kavero"
-            width={130}
-            height={40}
-            className="h-9 w-auto object-contain"
-            priority
-          />
-        </a>
-
-        {/* Links */}
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-          <a href="#fonctionnalites" className="hover:text-teal-600 transition-colors">
-            Fonctionnalités
-          </a>
-          <a href="#vision" className="hover:text-teal-600 transition-colors">
-            Vision
-          </a>
-          <a href="#contact" className="hover:text-teal-600 transition-colors">
-            Contact
-          </a>
-        </div>
-
-        {/* CTA */}
-        <a
-          href="#contact"
-          className="shrink-0 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-teal-200 hover:-translate-y-0.5"
-        >
-          Demander un accès
-        </a>
-      </div>
-    </nav>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   Hero
-───────────────────────────────────────────── */
-function Hero() {
-  return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white to-teal-50/60 pt-20 pb-28 px-5 text-center">
-      {/* Subtle background blobs */}
-      <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-40" />
-      <div className="pointer-events-none absolute -bottom-20 -right-20 w-80 h-80 bg-teal-200 rounded-full blur-3xl opacity-30" />
-
-      <div className="relative max-w-3xl mx-auto">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-teal-50 border border-teal-200 text-teal-700 text-sm font-medium px-4 py-1.5 rounded-full mb-7">
-          🌍 Conçu pour l&apos;Afrique de l&apos;Ouest
-        </div>
-
-        {/* Title */}
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
-          La plateforme RH des{" "}
-          <span className="text-teal-600">PME africaines</span>
-        </h1>
-
-        {/* Subtitle */}
-        <p className="text-lg sm:text-xl text-slate-500 max-w-xl mx-auto mb-10 leading-relaxed">
-          Gérez vos employés, congés, recrutement et présences depuis une seule
-          plateforme. Simple, moderne, fait pour vous.
-        </p>
-
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
-          <a
-            href="#contact"
-            className="w-full sm:w-auto bg-teal-600 hover:bg-teal-700 text-white font-semibold px-8 py-3.5 rounded-full transition-all duration-200 hover:shadow-xl hover:shadow-teal-200 hover:-translate-y-0.5 text-sm"
-          >
-            Demander un accès anticipé
-          </a>
-          <a
-            href="#fonctionnalites"
-            className="w-full sm:w-auto border-2 border-teal-600 text-teal-600 hover:bg-teal-50 font-semibold px-8 py-3.5 rounded-full transition-all duration-200 text-sm"
-          >
-            Voir la démo →
-          </a>
-        </div>
-
-        {/* Stats */}
-        <p className="text-sm text-slate-400 font-medium tracking-wide">
-          4 rôles&nbsp;&nbsp;·&nbsp;&nbsp;10+ modules&nbsp;&nbsp;·&nbsp;&nbsp;100% en français&nbsp;&nbsp;·&nbsp;&nbsp;FCFA natif
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   Features
-───────────────────────────────────────────── */
-const FEATURES = [
-  {
-    icon: "👥",
-    title: "Gestion des employés",
-    desc: "Fiches complètes, numéros EMP-001, statuts actif/inactif et historique RH centralisés.",
-    delay: "delay-1",
-  },
-  {
-    icon: "📅",
-    title: "Congés & Absences",
-    desc: "Demandes en ligne, validation multi-niveaux et consultation du solde en temps réel.",
-    delay: "delay-2",
-  },
-  {
-    icon: "⏰",
-    title: "Temps & Présence",
-    desc: "Pointage entrée/sortie, retards et récapitulatif mensuel par employé.",
-    delay: "delay-3",
-  },
-  {
-    icon: "📄",
-    title: "Documents RH",
-    desc: "Upload sécurisé, signature électronique et accès direct depuis l'espace employé.",
-    delay: "delay-4",
-  },
-  {
-    icon: "🎯",
-    title: "Recrutement",
-    desc: "Pipeline Kanban, suivi candidats de bout en bout et onboarding digital.",
-    delay: "delay-5",
-  },
-  {
-    icon: "📊",
-    title: "Analytics RH",
-    desc: "Masse salariale en FCFA, bilan social et taux d'absentéisme en un coup d'œil.",
-    delay: "delay-6",
-  },
-];
-
-function Features() {
-  const ref = useFadeUp();
-
-  return (
-    <section
-      id="fonctionnalites"
-      className="bg-slate-50 py-24 px-5"
-      ref={ref}
-    >
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-14">
-          <div className="fade-up inline-block bg-teal-50 border border-teal-200 text-teal-700 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
-            Fonctionnalités
-          </div>
-          <h2 className="fade-up delay-1 text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
-            Tout ce dont votre équipe RH a besoin
-          </h2>
-          <p className="fade-up delay-2 text-slate-500 max-w-lg mx-auto">
-            Une suite complète, conçue pour les réalités des PME d&apos;Afrique de l&apos;Ouest.
-          </p>
-        </div>
-
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FEATURES.map((f) => (
-            <div
-              key={f.title}
-              className={`fade-up ${f.delay} bg-white rounded-2xl border border-slate-100 p-7 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-250`}
-            >
-              <span className="text-3xl mb-4 block">{f.icon}</span>
-              <h3 className="text-base font-semibold text-slate-900 mb-2">
-                {f.title}
-              </h3>
-              <p className="text-sm text-slate-500 leading-relaxed">{f.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   Pour qui
-───────────────────────────────────────────── */
-const PROFILES = [
-  {
-    icon: "🏢",
-    role: "Dirigeant",
-    desc: "Pilotez votre entreprise avec une vue complète sur vos effectifs, présences et alertes RH.",
-    delay: "delay-1",
-  },
-  {
-    icon: "🧑‍💼",
-    role: "Responsable RH",
-    desc: "Gérez toute la RH depuis une interface simple : congés, contrats, recrutements et documents.",
-    delay: "delay-2",
-  },
-  {
-    icon: "📱",
-    role: "Employé",
-    desc: "Accédez à vos documents et demandes de congé depuis votre téléphone, où que vous soyez.",
-    delay: "delay-3",
-  },
-];
-
-function ForWho() {
-  const ref = useFadeUp();
-
-  return (
-    <section className="bg-white py-24 px-5" ref={ref}>
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-14">
-          <div className="fade-up inline-block bg-teal-50 border border-teal-200 text-teal-700 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
-            Pour qui
-          </div>
-          <h2 className="fade-up delay-1 text-3xl sm:text-4xl font-bold text-slate-900">
-            Fait pour toute votre équipe
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {PROFILES.map((p) => (
-            <div
-              key={p.role}
-              className={`fade-up ${p.delay} text-center p-8 rounded-2xl bg-gradient-to-b from-teal-50/60 to-white border border-teal-100`}
-            >
-              <span className="text-4xl mb-4 block">{p.icon}</span>
-              <h3 className="text-base font-bold text-slate-900 mb-3">{p.role}</h3>
-              <p className="text-sm text-slate-500 leading-relaxed">{p.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   Vision
-───────────────────────────────────────────── */
-function Vision() {
-  const ref = useFadeUp();
-
-  return (
-    <section id="vision" className="bg-slate-900 py-24 px-5" ref={ref}>
-      <div className="max-w-4xl mx-auto text-center">
-        <div className="fade-up inline-block bg-teal-900/60 border border-teal-700 text-teal-400 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-6">
-          Notre vision
-        </div>
-        <h2 className="fade-up delay-1 text-3xl sm:text-4xl font-bold text-white mb-6">
-          Pourquoi Kavero ?
-        </h2>
-        <p className="fade-up delay-2 text-slate-400 text-lg leading-relaxed max-w-2xl mx-auto mb-14">
-          Les outils RH existants ne sont pas faits pour l&apos;Afrique. Kavero est
-          conçu dès le départ pour les réalités des PME africaines : équipes
-          mixtes, salaires en FCFA, mobile-first.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {[
-            { icon: "🌍", title: "Fait pour l'Afrique", desc: "Contexte local, langues, devises et pratiques RH africaines.", delay: "delay-3" },
-            { icon: "📱", title: "Mobile-first", desc: "Accessible depuis n'importe quel téléphone, même en zone peu connectée.", delay: "delay-4" },
-            { icon: "🔒", title: "Données sécurisées", desc: "Hébergement sécurisé, accès par rôle et confidentialité garantie.", delay: "delay-5" },
-          ].map((item) => (
-            <div
-              key={item.title}
-              className={`fade-up ${item.delay} bg-slate-800 rounded-2xl p-7 border border-slate-700`}
-            >
-              <span className="text-3xl mb-4 block">{item.icon}</span>
-              <h3 className="text-white font-semibold mb-2">{item.title}</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   Accès anticipé
-───────────────────────────────────────────── */
-function EarlyAccess() {
-  const ref = useFadeUp();
-  const [company, setCompany] = useState("");
-  const [email, setEmail] = useState("");
-
-  function handleSubmit(e: { preventDefault: () => void }) {
+  function handleDemoSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const subject = encodeURIComponent(`Demande d'accès anticipé — ${company}`);
+    const subject = encodeURIComponent(
+      `Demande de démo Kavero — ${formCompany}`
+    );
     const body = encodeURIComponent(
-      `Bonjour,\n\nJe souhaite rejoindre le pilote Kavero.\n\nEntreprise : ${company}\nEmail : ${email}\n\nMerci.`
+      `Bonjour,\n\nJe souhaite demander une démo de Kavero.\n\nNom : ${formName}\nEntreprise : ${formCompany}\nEmail : ${formEmail}\nTaille de l'équipe : ${formSize}\n\nMerci.`
     );
     window.location.href = `mailto:iscamara310@gmail.com?subject=${subject}&body=${body}`;
   }
 
   return (
-    <section id="contact" className="bg-teal-600 py-24 px-5" ref={ref}>
-      <div className="max-w-xl mx-auto text-center">
-        <div className="fade-up inline-block bg-white/20 text-white text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-5">
-          Accès anticipé
-        </div>
-        <h2 className="fade-up delay-1 text-3xl sm:text-4xl font-bold text-white mb-3">
-          Rejoignez les premiers
-        </h2>
-        <p className="fade-up delay-2 text-teal-100 mb-10">
-          Kavero arrive bientôt. Laissez votre email pour être parmi les premiers à y avoir accès.
-        </p>
+    <>
+      <style>{`
+        .fade-up {
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+        .delay-6 { transition-delay: 0.6s; }
+      `}</style>
 
-        <form
-          onSubmit={handleSubmit}
-          className="fade-up delay-3 flex flex-col gap-4"
+      <main className="antialiased">
+
+        {/* ══════════════════════════════════════
+            1. NAVBAR
+        ══════════════════════════════════════ */}
+        <nav
+          className={`sticky top-0 z-50 bg-white transition-shadow duration-300 ${
+            scrolled ? "shadow-md" : "border-b border-slate-100"
+          }`}
         >
-          <input
-            type="text"
-            placeholder="Nom de votre entreprise"
-            required
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
-            className="w-full px-5 py-3.5 rounded-xl bg-white/10 border border-white/30 text-white placeholder-teal-200 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm"
-          />
-          <input
-            type="email"
-            placeholder="Votre adresse email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-5 py-3.5 rounded-xl bg-white/10 border border-white/30 text-white placeholder-teal-200 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm"
-          />
-          <button
-            type="submit"
-            className="w-full bg-white text-teal-700 font-bold py-3.5 rounded-xl hover:bg-teal-50 transition-colors duration-200 text-sm shadow-lg"
-          >
-            Envoyer ma demande →
-          </button>
-        </form>
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-6">
+            {/* Logo */}
+            <a href="#" className="shrink-0">
+              <Image
+                src="/kavero-logo-transparent.webp"
+                alt="Kavero"
+                width={130}
+                height={40}
+                className="h-9 w-auto object-contain"
+                priority
+              />
+            </a>
 
-        <p className="fade-up delay-4 text-teal-200 text-xs mt-5">
-          Aucun engagement. Nous vous contacterons dès l&apos;ouverture.
-        </p>
-      </div>
-    </section>
-  );
-}
+            {/* Desktop nav links */}
+            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+              <a href="#" className="hover:text-teal-600 transition-colors">
+                Produit
+              </a>
+              <a href="#fonctionnalites" className="hover:text-teal-600 transition-colors">
+                Fonctionnalités
+              </a>
+              <a href="#" className="hover:text-teal-600 transition-colors">
+                Kavero Jobs
+              </a>
+              <a href="#contact" className="hover:text-teal-600 transition-colors">
+                Contact
+              </a>
+            </div>
 
-/* ─────────────────────────────────────────────
-   Footer
-───────────────────────────────────────────── */
-function Footer() {
-  return (
-    <footer className="bg-slate-900 py-10 px-5 text-center">
-      <div className="max-w-6xl mx-auto flex flex-col items-center gap-4">
-        <Image
-          src="/kavero-logo-transparent.webp"
-          alt="Kavero"
-          width={110}
-          height={34}
-          className="h-8 w-auto object-contain brightness-0 invert opacity-80"
-          loading="lazy"
-        />
-        <p className="text-slate-400 text-sm">
-          La plateforme RH des PME africaines
-        </p>
-        <p className="text-slate-600 text-xs">
-          © 2026 Kavero · kaverohr.com · Fait avec ❤️ pour l&apos;Afrique
-        </p>
-      </div>
-    </footer>
-  );
-}
+            <div className="flex items-center gap-3">
+              {/* CTA desktop */}
+              <a
+                href="#contact"
+                className="hidden md:inline-flex shrink-0 bg-teal-600 hover:bg-teal-700 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-teal-200 hover:-translate-y-0.5"
+              >
+                Demander une démo
+              </a>
 
-/* ─────────────────────────────────────────────
-   Page
-───────────────────────────────────────────── */
-export default function Home() {
-  return (
-    <main>
-      <Navbar />
-      <Hero />
-      <Features />
-      <ForWho />
-      <Vision />
-      <EarlyAccess />
-      <Footer />
-    </main>
+              {/* Hamburger */}
+              <button
+                className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Menu"
+              >
+                {mobileMenuOpen ? (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden bg-white border-t border-slate-100 px-5 py-5 flex flex-col gap-4">
+              <a
+                href="#"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm font-medium text-slate-600 hover:text-teal-600"
+              >
+                Produit
+              </a>
+              <a
+                href="#fonctionnalites"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm font-medium text-slate-600 hover:text-teal-600"
+              >
+                Fonctionnalités
+              </a>
+              <a
+                href="#"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm font-medium text-slate-600 hover:text-teal-600"
+              >
+                Kavero Jobs
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-sm font-medium text-slate-600 hover:text-teal-600"
+              >
+                Contact
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="bg-teal-600 text-white text-sm font-semibold px-5 py-3 rounded-full text-center"
+              >
+                Demander une démo
+              </a>
+            </div>
+          )}
+        </nav>
+
+        {/* ══════════════════════════════════════
+            2. HERO
+        ══════════════════════════════════════ */}
+        <section
+          style={{ backgroundColor: "#0f172a" }}
+          className="relative overflow-hidden py-20 lg:py-28 px-5"
+        >
+          {/* Background glows */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="absolute -top-48 -left-48 w-[500px] h-[500px] bg-teal-900/30 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-teal-800/20 rounded-full blur-3xl" />
+          </div>
+
+          <div className="relative max-w-6xl mx-auto">
+            <div className="flex flex-col lg:flex-row items-center gap-14 lg:gap-16">
+
+              {/* Left: copy */}
+              <div className="flex-1 text-center lg:text-left">
+                {/* Badge */}
+                <div className="inline-flex items-center gap-2 bg-teal-900/60 border border-teal-700 text-teal-400 text-xs font-semibold px-4 py-1.5 rounded-full mb-7">
+                  📈 Conçu pour l&apos;Afrique de l&apos;Ouest
+                </div>
+
+                {/* H1 */}
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
+                  La plateforme RH des{" "}
+                  <br />
+                  <span className="text-teal-400">PME africaines</span>
+                </h1>
+
+                {/* Subtitle */}
+                <p className="text-slate-400 text-lg sm:text-xl max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
+                  Kavero digitalise la gestion RH des PME africaines. Prêt en 5 minutes, sans installation.
+                </p>
+
+                {/* CTAs */}
+                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
+                  <a
+                    href="#contact"
+                    className="w-full sm:w-auto bg-teal-600 hover:bg-teal-500 text-white font-semibold px-8 py-4 rounded-full transition-all duration-200 hover:shadow-xl hover:shadow-teal-900 hover:-translate-y-0.5 text-base text-center"
+                  >
+                    Demander une démo gratuite →
+                  </a>
+                  <a
+                    href="#solution"
+                    className="w-full sm:w-auto border border-white/30 text-white hover:bg-white/10 font-semibold px-8 py-4 rounded-full transition-all duration-200 text-base text-center"
+                  >
+                    Rejoindre la liste d&apos;attente
+                  </a>
+                </div>
+
+              </div>
+
+              {/* Right: simulated UI card */}
+              <div className="flex-1 w-full max-w-sm lg:max-w-md relative">
+                <div className="relative bg-slate-800 rounded-2xl border border-slate-700 p-5 shadow-2xl">
+                  {/* Floating badge top-left */}
+                  <div className="absolute -top-3.5 left-4 bg-teal-500 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg z-10 whitespace-nowrap">
+                    ✅ Congé validé — Mariama Diallo
+                  </div>
+
+                  {/* Dashboard header */}
+                  <div className="flex items-center justify-between mb-5 pt-3">
+                    <div>
+                      <p className="text-white font-semibold text-sm">Kavero Org</p>
+                      <p className="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
+                        <span className="w-2 h-2 bg-teal-400 rounded-full inline-block" />
+                        En ligne
+                      </p>
+                    </div>
+                    <div className="text-xs text-slate-400 bg-slate-700 px-2.5 py-1 rounded-lg">
+                      Dashboard
+                    </div>
+                  </div>
+
+                  {/* Metrics */}
+                  <div className="grid grid-cols-3 gap-3 mb-5">
+                    {[
+                      { label: "Employés", value: "47" },
+                      { label: "Congés", value: "3" },
+                      { label: "Présence", value: "92%" },
+                    ].map((m) => (
+                      <div key={m.label} className="bg-slate-900 rounded-xl p-3 text-center">
+                        <p className="text-teal-400 font-bold text-xl">{m.value}</p>
+                        <p className="text-slate-400 text-xs mt-0.5">{m.label}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Employee list */}
+                  <div className="space-y-2">
+                    {[
+                      { name: "Mariama Diallo", role: "Marketing Director" },
+                      { name: "Kofi Mensah", role: "Dev Frontend" },
+                      { name: "Aminata Touré", role: "RH Officer" },
+                    ].map((emp) => (
+                      <div
+                        key={emp.name}
+                        className="flex items-center justify-between bg-slate-900/60 rounded-xl px-3 py-2.5"
+                      >
+                        <div>
+                          <p className="text-white text-xs font-medium">{emp.name}</p>
+                          <p className="text-slate-500 text-xs">{emp.role}</p>
+                        </div>
+                        <span className="text-xs text-teal-400 bg-teal-900/40 px-2 py-0.5 rounded-full">
+                          Actif
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Floating badge bottom-right */}
+                  <div className="absolute -bottom-3.5 right-4 bg-teal-500 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap">
+                    47 Employés actifs
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════
+            SOCIAL PROOF BAND
+        ══════════════════════════════════════ */}
+        <section className="bg-slate-900 py-5 px-5">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+              {[
+                "Conçu pour les PME d\u2019Afrique de l\u2019Ouest",
+                "FCFA natif",
+                "Interface 100\u202f% en français",
+                "Support 7j/7",
+              ].map((tag, i, arr) => (
+                <span key={tag} className="flex items-center gap-2 sm:gap-3">
+                  <span className="border border-slate-700 text-slate-400 text-xs font-medium px-3.5 py-1.5 rounded-full">
+                    {tag}
+                  </span>
+                  {i < arr.length - 1 && (
+                    <span className="text-slate-600 text-sm hidden sm:inline">·</span>
+                  )}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════
+            6. LA SOLUTION
+        ══════════════════════════════════════ */}
+        <section
+          id="fonctionnalites"
+          ref={refSolution}
+          style={{ backgroundColor: "#0f172a" }}
+          className="py-24 px-5"
+        >
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-14">
+              <h2 className="fade-up text-3xl sm:text-4xl font-bold text-white mb-3">
+                Tout ce dont votre équipe RH a besoin
+              </h2>
+            </div>
+
+            <div className="flex flex-col lg:flex-row items-center gap-14">
+              {/* Points */}
+              <div className="flex-1 space-y-8">
+                {[
+                  {
+                    num: "1",
+                    title: "Self-serve — Prêt en 5 minutes",
+                    desc: "Créez votre compte, invitez vos employés par email. Zéro installation, zéro SQL, zéro commercial.",
+                    delay: "delay-1",
+                  },
+                  {
+                    num: "2",
+                    title: "100% adapté à l'Afrique de l'Ouest",
+                    desc: "FCFA natif, interface en français, hiérarchie flexible, conforme aux pratiques RH locales.",
+                    delay: "delay-2",
+                  },
+                  {
+                    num: "3",
+                    title: "Prix accessibles à toutes les PME",
+                    desc: "Conçu pour les équipes de 10 à 100 personnes. Moins de 1% de votre masse salariale.",
+                    delay: "delay-3",
+                  },
+                  {
+                    num: "4",
+                    title: "Kavero Jobs intégré",
+                    desc: "Publiez vos offres d'emploi directement sur jobs.kaverohr.com depuis votre dashboard RH.",
+                    delay: "delay-4",
+                  },
+                ].map((point) => (
+                  <div
+                    key={point.num}
+                    className={`fade-up ${point.delay} flex items-start gap-4`}
+                  >
+                    <div className="shrink-0 w-9 h-9 rounded-full bg-teal-600 flex items-center justify-center text-white text-sm font-bold">
+                      {point.num}
+                    </div>
+                    <div>
+                      <h3 className="text-white font-semibold mb-1">{point.title}</h3>
+                      <p className="text-slate-400 text-sm leading-relaxed">{point.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* UI card */}
+              <div className="flex-1 w-full max-w-sm lg:max-w-md fade-up delay-5">
+                <div className="bg-slate-800 rounded-2xl border border-slate-700 p-5 shadow-2xl">
+                  <div className="flex items-center justify-between mb-5">
+                    <div>
+                      <p className="text-white font-semibold text-sm">Kavero Org</p>
+                      <p className="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
+                        <span className="w-2 h-2 bg-teal-400 rounded-full inline-block" />
+                        En ligne
+                      </p>
+                    </div>
+                    <div className="text-xs text-slate-400 bg-slate-700 px-2.5 py-1 rounded-lg">
+                      Dashboard RH
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3 mb-5">
+                    {[
+                      { label: "Effectif", value: "124" },
+                      { label: "Absences", value: "7" },
+                      { label: "Présence", value: "95%" },
+                    ].map((m) => (
+                      <div key={m.label} className="bg-slate-900 rounded-xl p-3 text-center">
+                        <p className="text-teal-400 font-bold text-xl">{m.value}</p>
+                        <p className="text-slate-400 text-xs mt-0.5">{m.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="space-y-2">
+                    {[
+                      { name: "Oumar Bâ", role: "DRH" },
+                      { name: "Awa Konaté", role: "Comptable" },
+                      { name: "Ismaël Traoré", role: "Commercial" },
+                    ].map((emp) => (
+                      <div
+                        key={emp.name}
+                        className="flex items-center justify-between bg-slate-900/60 rounded-xl px-3 py-2.5"
+                      >
+                        <div>
+                          <p className="text-white text-xs font-medium">{emp.name}</p>
+                          <p className="text-slate-500 text-xs">{emp.role}</p>
+                        </div>
+                        <span className="text-xs text-teal-400 bg-teal-900/40 px-2 py-0.5 rounded-full">
+                          Actif
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════
+            7. LES MODULES
+        ══════════════════════════════════════ */}
+        <section
+          ref={refModules}
+          style={{ backgroundColor: "#0f172a" }}
+          className="pt-0 pb-24 px-5 border-t border-slate-800"
+        >
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-14">
+              <h2 className="fade-up text-3xl sm:text-4xl font-bold text-white mb-3">
+                Une suite RH complète
+              </h2>
+              <p className="fade-up delay-2 text-slate-400 max-w-lg mx-auto">
+                10+ fonctionnalités pour digitaliser 100% de votre gestion RH
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {[
+                {
+                  icon: "👥",
+                  iconBg: "bg-violet-500",
+                  title: "Gestion des employés",
+                  desc: "Fiches complètes, numéros EMP-001, hiérarchie manager, import CSV/Excel.",
+                  badge: null,
+                  delay: "delay-1",
+                },
+                {
+                  icon: "🌴",
+                  iconBg: "bg-emerald-500",
+                  title: "Congés & Absences",
+                  desc: "Demandes en ligne, validation multi-niveaux, solde temps réel, politique configurable.",
+                  badge: null,
+                  delay: "delay-2",
+                },
+                {
+                  icon: "⏰",
+                  iconBg: "bg-blue-500",
+                  title: "Temps & Présence",
+                  desc: "Pointage entrée/sortie, géolocalisation 3 modes, historique mensuel, vue équipe.",
+                  badge: null,
+                  delay: "delay-3",
+                },
+                {
+                  icon: "📄",
+                  iconBg: "bg-orange-500",
+                  title: "Documents RH",
+                  desc: "Upload sécurisé, signature électronique hybride, accès depuis le portail employé.",
+                  badge: null,
+                  delay: "delay-4",
+                },
+                {
+                  icon: "🎯",
+                  iconBg: "bg-teal-500",
+                  title: "Recrutement + Kavero Jobs",
+                  desc: "Pipeline Kanban, ATS avec scoring IA, CVthèque, offres sur jobs.kaverohr.com.",
+                  badge: "Nouveau",
+                  delay: "delay-5",
+                },
+                {
+                  icon: "📊",
+                  iconBg: "bg-indigo-500",
+                  title: "Analytics & Finances RH",
+                  desc: "Masse salariale FCFA, bilan social, reporting PDF/Excel, intégration Payroll Yros.",
+                  badge: null,
+                  delay: "delay-6",
+                },
+              ].map((mod) => (
+                <div
+                  key={mod.title}
+                  className={`fade-up ${mod.delay} bg-slate-800 rounded-2xl border border-slate-700 p-6 hover:border-teal-700 hover:-translate-y-1 transition-all duration-200`}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`w-12 h-12 rounded-2xl ${mod.iconBg} flex items-center justify-center text-2xl shadow-lg`}>
+                      {mod.icon}
+                    </div>
+                    {mod.badge && (
+                      <span className="text-xs font-semibold bg-orange-500/20 text-orange-400 border border-orange-500/30 px-2 py-0.5 rounded-full">
+                        {mod.badge}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-white font-semibold mb-2">{mod.title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{mod.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════
+            8. POURQUOI KAVERO
+        ══════════════════════════════════════ */}
+        <section ref={refWhy} className="bg-white py-24 px-5">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-14">
+              <h2 className="fade-up text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
+                Pourquoi choisir Kavero ?
+              </h2>
+              <p className="fade-up delay-1 text-slate-500 max-w-lg mx-auto">
+                Ce qui nous différencie sur le marché africain
+              </p>
+            </div>
+
+            <div className="fade-up delay-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {(
+                [
+                  {
+                    path: "M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z",
+                    title: "Conçu pour l'Afrique",
+                    desc: "FCFA natif, pratiques RH locales, conforme au Code du Travail sénégalais",
+                  },
+                  {
+                    path: "M13 10V3L4 14h7v7l9-11h-7z",
+                    title: "Inscription self-serve",
+                    desc: "Sans démo commerciale — créez votre compte en 2 minutes",
+                  },
+                  {
+                    path: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+                    title: "Démo gratuite",
+                    desc: "Découvrez Kavero en 20 minutes, sans engagement",
+                  },
+                  {
+                    path: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+                    title: "FCFA natif",
+                    desc: "Conformité aux pratiques RH locales d\u2019Afrique de l\u2019Ouest",
+                  },
+                  {
+                    path: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
+                    title: "Prêt en 5 minutes",
+                    desc: "Setup ultra-rapide, zéro installation, zéro SQL",
+                  },
+                  {
+                    path: "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
+                    title: "Support 7j/7",
+                    desc: "Assistance en français tous les jours de la semaine",
+                  },
+                  {
+                    path: "M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129",
+                    title: "Interface en français",
+                    desc: "100\u202f% pensé pour les équipes francophones",
+                  },
+                  {
+                    path: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15",
+                    title: "Offboarding automatisé",
+                    desc: "Processus de départ structuré et sans friction",
+                  },
+                  {
+                    path: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
+                    title: "AI Insights",
+                    desc: "Analytics intelligents et recommandations via Claude API",
+                  },
+                ] as { path: string; title: string; desc: string }[]
+              ).map((feature) => (
+                <div
+                  key={feature.title}
+                  className="flex items-start gap-4 bg-white rounded-2xl border border-slate-100 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                >
+                  <div className="shrink-0 w-11 h-11 rounded-full bg-teal-600 flex items-center justify-center">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d={feature.path} />
+                    </svg>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-semibold text-slate-900 text-sm leading-snug">{feature.title}</h3>
+                      <span className="shrink-0 text-green-500 font-bold text-sm">✓</span>
+                    </div>
+                    <p className="text-xs text-slate-500 leading-relaxed">{feature.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════
+            9. DEMANDER UNE DÉMO
+        ══════════════════════════════════════ */}
+        <section
+          id="contact"
+          ref={refContact}
+          className="bg-teal-600 py-24 px-5"
+        >
+          <div className="max-w-xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="fade-up text-3xl sm:text-4xl font-bold text-white mb-4">
+                Prêt à digitaliser votre RH ?
+              </h2>
+              <p className="fade-up delay-1 text-teal-100 leading-relaxed">
+                Discutons de vos besoins. Une démo de 20 minutes suffit pour voir
+                comment Kavero transforme votre gestion RH.
+              </p>
+            </div>
+
+            <form
+              onSubmit={handleDemoSubmit}
+              className="fade-up delay-2 flex flex-col gap-4"
+            >
+              <input
+                type="text"
+                placeholder="Votre prénom et nom"
+                required
+                value={formName}
+                onChange={(e) => setFormName(e.target.value)}
+                className="w-full px-5 py-3.5 rounded-xl bg-white/10 border border-white/30 text-white placeholder-teal-200 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm"
+              />
+              <input
+                type="text"
+                placeholder="Nom de votre entreprise"
+                required
+                value={formCompany}
+                onChange={(e) => setFormCompany(e.target.value)}
+                className="w-full px-5 py-3.5 rounded-xl bg-white/10 border border-white/30 text-white placeholder-teal-200 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm"
+              />
+              <input
+                type="email"
+                placeholder="Votre adresse email professionnelle"
+                required
+                value={formEmail}
+                onChange={(e) => setFormEmail(e.target.value)}
+                className="w-full px-5 py-3.5 rounded-xl bg-white/10 border border-white/30 text-white placeholder-teal-200 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm"
+              />
+              <select
+                value={formSize}
+                onChange={(e) => setFormSize(e.target.value)}
+                className="w-full px-5 py-3.5 rounded-xl bg-white/10 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-white/50 text-sm"
+              >
+                <option value="" disabled className="text-slate-700 bg-white">
+                  Taille de votre équipe
+                </option>
+                <option value="1-10 employés" className="text-slate-700 bg-white">
+                  1-10 employés
+                </option>
+                <option value="11-25 employés" className="text-slate-700 bg-white">
+                  11-25 employés
+                </option>
+                <option value="26-50 employés" className="text-slate-700 bg-white">
+                  26-50 employés
+                </option>
+                <option value="50+ employés" className="text-slate-700 bg-white">
+                  50+ employés
+                </option>
+              </select>
+              <button
+                type="submit"
+                className="w-full bg-white text-teal-700 font-bold py-4 rounded-xl hover:bg-teal-50 transition-colors duration-200 text-sm shadow-lg"
+              >
+                Demander ma démo gratuite →
+              </button>
+            </form>
+
+            <div className="fade-up delay-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-7 text-teal-100 text-xs">
+              <span>✓ Démo gratuite de 20 min</span>
+              <span>✓ Sans engagement</span>
+              <span>✓ Réponse sous 24h</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════
+            10. FOOTER
+        ══════════════════════════════════════ */}
+        <footer className="bg-slate-900 py-16 px-5">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+              {/* Brand */}
+              <div className="lg:col-span-1">
+                <Image
+                  src="/kavero-logo-transparent.webp"
+                  alt="Kavero"
+                  width={110}
+                  height={34}
+                  className="h-8 w-auto object-contain brightness-0 invert opacity-80 mb-3"
+                  loading="lazy"
+                />
+                <p className="text-slate-400 text-sm">
+                  La plateforme RH des PME africaines
+                </p>
+              </div>
+
+              {/* Produit */}
+              <div>
+                <h4 className="text-white font-semibold text-sm mb-4">Produit</h4>
+                <ul className="space-y-2.5">
+                  {["Fonctionnalités", "Kavero Jobs", "Roadmap"].map((link) => (
+                    <li key={link}>
+                      <a
+                        href="#"
+                        className="text-slate-400 hover:text-teal-400 text-sm transition-colors"
+                      >
+                        {link}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Entreprise */}
+              <div>
+                <h4 className="text-white font-semibold text-sm mb-4">Entreprise</h4>
+                <ul className="space-y-2.5">
+                  {[
+                    { label: "À propos", href: "#" },
+                    { label: "Contact", href: "#contact" },
+                    { label: "Blog (bientôt)", href: "#" },
+                  ].map((link) => (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        className="text-slate-400 hover:text-teal-400 text-sm transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Contact */}
+              <div>
+                <h4 className="text-white font-semibold text-sm mb-4">Contact</h4>
+                <ul className="space-y-2.5">
+                  <li>
+                    <span className="text-slate-400 text-sm">kaverohr.com</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="border-t border-slate-800 pt-8 text-center">
+              <p className="text-slate-600 text-xs">
+                © 2026 Kavero · Fait avec ❤️ pour l&apos;Afrique
+              </p>
+            </div>
+          </div>
+        </footer>
+
+      </main>
+    </>
   );
 }
